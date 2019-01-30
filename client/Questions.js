@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
+import SelectForm from './SelectForm'
 import questions from '../data/questions.json'
+
 
 
 export default class Questions extends Component {
@@ -14,6 +16,7 @@ export default class Questions extends Component {
     console.log(this.state.questions)
     return (
       <div>
+        <SelectForm question={this.state.questions[0]}/>
         {/* start here */}
       </div>
     )
