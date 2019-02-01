@@ -1,37 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
+import createForm from './createForm'
 
-export default class SelectForm extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      answer:'',
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+const SelectForm = (props) => {
 
-  async handleChange(evt){
-    await this.setState({
-      [evt.target.name]: evt.target.value
-    })
-    console.log(`handleChange --->`,this.state)
-  }
-
-  handleSubmit(evt){
-    evt.preventDefault()
-    console.log(`handleSubmit--->`, this.state.answer)
-  }
-
-  render() {
-  const choices = this.props.question.choices
-  const name = this.props.question.name
-
+  const choices = props.question.choices
+  const name = props.question.name
 
   return (
-      <form onSubmit={this.handleSubmit} >
+      <form onSubmit={props.handleSubmit} >
         <label>{name}</label>
         <select name='answer'
-                onChange={this.handleChange}>
+                onChange={props.handleChange}>
           <option value=''>--</option>
           {choices.map((choice,idx) => <option value={choice.value} key={idx}>{choice.label}</option>)}
         </select>
@@ -39,4 +18,6 @@ export default class SelectForm extends Component {
       </form>
     )
   }
-}
+
+export default createForm(SelectForm)
+
