@@ -2,9 +2,9 @@ import React from 'react'
 import createForm from './createForm'
 
 const SelectForm = (props) => {
-
-  const choices = props.question.choices
-  const name = props.question.name
+  console.log(`SelectForm props -->`,props)
+  const choices = props.questions[3].choices || []
+  const name = props.questions[3].name || ''
 
   return (
       <form onSubmit={props.handleSubmit} >

@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import axios from 'axios'
 import SelectForm from './SelectForm'
 import RadioForm from './RadioForm'
 import questions from '../data/questions.json'
@@ -6,19 +7,27 @@ import questions from '../data/questions.json'
 
 
 export default class Questions extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       questions
     }
   }
 
-  render () {
-    console.log(this.state.questions)
+  async componentDidMount() {
+    const res = await axios.get('/api/questions')
+    const data = res.data
+    this.setState({
+      questions: data
+    })
+  }
+
+  render() {
+    console.log(`render--->`, this.state)
     return (
       <div>
-        <SelectForm question={this.state.questions[0]} />
-        <RadioForm  question={this.state.questions[1]}   />
+        <SelectForm questions={this.state.questions} />
+        <RadioForm questions={this.state.questions} />
         {/* start here */}
       </div>
     )
