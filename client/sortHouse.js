@@ -1,7 +1,26 @@
 const sortHouse = (answers) => {
-  // For now, we're all Gryffindors.
-  // Replace this with your own logic to really sort things out!
-  return 'Gryffindor'
+  let tally = {}
+  let winner = ''
+  let count = 0
+
+  for(let i = 0; i < answers.length; i++){
+    const currentAnswer = answers[i]
+
+    if(!tally[currentAnswer]){
+      tally[currentAnswer] = 1
+    } else {
+      tally[currentAnswer] += 1
+    }
+  }
+
+  for(let key in tally){
+    if(tally[key] > count){
+      count = tally[key]
+      winner = key
+    }
+  }
+  console.log(`Tally --->`, tally)
+  return winner
 }
 
 export default sortHouse

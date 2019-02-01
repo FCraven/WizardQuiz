@@ -2,8 +2,10 @@ import React from 'react'
 import createForm from './createForm'
 
 const RadioForm = (props) => {
-    const questionName = props.questions[props.currentQuestion].name
-    const choices = props.questions[props.currentQuestion].choices || []
+
+    const answer = props.answer
+    const questionName = props.question.name
+    const choices = props.question.choices
     return(
       <form onSubmit={props.handleSubmit}>
         <label>{questionName}</label>
@@ -13,12 +15,13 @@ const RadioForm = (props) => {
               <input type='radio'
                      name='answer'
                      value={choice.value}
+                     checked={answer===choice.value}
                      onChange={props.handleChange}
                />
               {choice.label}
           </label>) }
 
-        <button type='submit'>Next</button>
+        <button disabled={!answer} type='submit' >Next</button>
       </form>
     )
 }
