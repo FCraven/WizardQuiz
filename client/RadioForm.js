@@ -6,7 +6,8 @@ export default class RadioForm extends Component {
     this.state= {
       answer:''
     }
-    
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async handleChange(evt) {
