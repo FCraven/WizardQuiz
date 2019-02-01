@@ -23,6 +23,7 @@ const createForm = (FormComponent) => {
     handleSubmit(evt){
       evt.preventDefault()
       console.log(`handleSubmit -->`,this.state.answer)
+      this.props.answerQuestion(evt.target.value)
     }
 
     render () {

@@ -10,25 +10,49 @@ export default class Questions extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      questions
+      questions,
+      answers: [],
+      currentQuestion: 0,
     }
+    this.answerQuestion = this.answerQuestion.bind(this)
   }
 
   async componentDidMount() {
     const res = await axios.get('/api/questions')
     const data = res.data
     this.setState({
-      questions: data
+      questions: data,
     })
   }
 
+  async answerQuestion(answer){
+    const state = this.state
+    await this.setState({
+      answers: [...state.answers, answer],
+      currentQuestion: state.currentQuestion += 1
+    })
+  }
+
+
+
   render() {
+    const currentQuestion = this.state.currentQuestion
+    const answerQuestion = this.answerQuestion
     console.log(`render--->`, this.state)
     return (
       <div>
-        <SelectForm questions={this.state.questions} />
-        <RadioForm questions={this.state.questions} />
-        {/* start here */}
+      {
+        (currentQuestion%2 === 0) ?
+
+          <SelectForm questions={this.state.questions}
+                      currentQuestion={currentQuestion}
+                      answerQuestion={answerQuestion}  /> :
+
+          <RadioForm questions={this.state.questions}
+                     currentQuestion={currentQuestion}
+                     answerQuestion={answerQuestion}
+          />
+      }
       </div>
     )
   }
