@@ -16,15 +16,18 @@ export default class Questions extends Component {
       questions,
       answers: [],
       currentQuestion: 0,
+      loading: false,
     }
     this.answerQuestion = this.answerQuestion.bind(this)
   }
 
   async componentDidMount() {
+    this.setState({loading:true})
     const res = await axios.get('/api/questions')
     const data = res.data
     this.setState({
       questions: data,
+      loading: false
     })
   }
 
@@ -42,28 +45,31 @@ export default class Questions extends Component {
     const question = this.state.questions[this.state.currentQuestion]
     const currentQuestion = this.state.currentQuestion
     const answerQuestion = this.answerQuestion
-    console.log(`this.state.answers`, this.state.answers)
+    console.log(`refresh`)
+
+
 
     if(this.state.questions.length === this.state.answers.length) {
-
       return <Result house={sortHouse(this.state.answers)}/>
     }
-
-
 
     return (
       <div>
 
-        {this.state.questions ? (currentQuestion % 2 === 0 ?
+        { this.state.loading ? <Loading /> :
+
+          (currentQuestion % 2 === 0 ?
 
           <SelectForm question={question}
             currentQuestion={currentQuestion}
-            answerQuestion={answerQuestion} /> :
+            answerQuestion={answerQuestion} />
+
+            :
 
           <RadioForm question={question}
             currentQuestion={currentQuestion}
             answerQuestion={answerQuestion}
-          />) : <Loading />
+          />)
         }
       </div>
     )
