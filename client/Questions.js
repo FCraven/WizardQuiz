@@ -58,7 +58,7 @@ export default class Questions extends Component {
 
         { this.state.loading ? <Loading /> :
 
-          (currentQuestion % 2 === 0 ?
+          currentQuestion % 2 === 0 ?
 
           <SelectForm question={question}
             currentQuestion={currentQuestion}
@@ -69,7 +69,7 @@ export default class Questions extends Component {
           <RadioForm question={question}
             currentQuestion={currentQuestion}
             answerQuestion={answerQuestion}
-          />)
+          />
         }
       </div>
     )
